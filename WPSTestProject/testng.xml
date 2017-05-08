@@ -3,9 +3,9 @@
 <suite name="Suite">
 	<test name="Test">
 		<classes>
-			<class name="com.ksta.zh.ch.selenium.test.WPSTest">
+			<class name="com.ksta.zh.ch.selenium.test.WPSTestSuite">
 				<methods>
-					<include name="loopJPs" />
+					<include name="getVal" />
 				</methods>
 			</class>
 		</classes>

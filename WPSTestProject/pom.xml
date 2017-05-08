@@ -8,9 +8,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<!-- Dependency versions -->
 		<selenium.version>3.4.0</selenium.version>
-		<browser>firefox</browser>
+		<browser>ie</browser>
 		<overwrite.binaries>false</overwrite.binaries>
 	</properties>
 	<build>
@@ -20,19 +19,21 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>2.20</version>
 				<configuration>
-					<skip>true</skip>
-					<parallel>methods</parallel>
-					<threadCount>${threads}</threadCount>
-					<systemProperties>
-						<browser>${browser}</browser>
-					</systemProperties>
+					<forkCount>0</forkCount>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
+						<file>testng.xml</file>
 					</suiteXmlFiles>
+					<properties>
+						<property>
+							<name>suitethreadpoolsize</name>
+							<value>2</value>
+						</property>
+					</properties>
 				</configuration>
 				<executions>
 					<execution>
 						<goals>
+							<goal>integration-test</goal>
 							<goal>verify</goal>
 						</goals>
 					</execution>
@@ -41,21 +42,15 @@
 			<plugin>
 				<groupId>com.lazerycode.selenium</groupId>
 				<artifactId>driver-binary-downloader-maven-plugin</artifactId>
-				<version>1.0.12</version>
+				<version>1.0.10</version>
 				<configuration>
 					<rootStandaloneServerDirectory>${project.basedir}\src\test\resources\selenium_standalone_binaries</rootStandaloneServerDirectory>
 					<downloadedZipFileDirectory>${project.basedir}\src\test\resources\selenium_standalone_zips</downloadedZipFileDirectory>
 					<customRepositoryMap>${project.basedir}\src\test\resources\RepositoryMap.xml</customRepositoryMap>
 					<overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
 				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>selenium</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
 	<dependencies>
@@ -73,8 +68,13 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.11</version>
+			<version>6.9.6</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.lightbody.bmp</groupId>
+			<artifactId>browsermob-core-littleproxy</artifactId>
+			<version>2.1.0-beta-2</version>
 		</dependency>
 	</dependencies>
 </project>
